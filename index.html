@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National Tribal Scholarship Portal | Ministry of Tribal Affairs</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Top Utility Bar -->
+  <div class="utility-bar">
+    <div class="container utility-flex">
+      <span><i class="fa-solid fa-flag"></i> Government of India | Ministry of Tribal Affairs</span>
+      <div class="utility-right">
+        <button id="lang-btn" class="util-btn" type="button">
+          <i class="fa-solid fa-language"></i> <span id="txt-lang-label">हिन्दी</span>
+        </button>
+        <span class="dbt-status-tag"><i class="fa-solid fa-bolt"></i> PFMS / DBT Integrated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="logo-area" onclick="navigateTo('home')">
+        <i class="fa-solid fa-graduation-cap logo-icon"></i>
+        <div>
+          <h1>Tribal Scholar Portal</h1>
+          <p>National Unified Gateway for Scheduled Tribe Students</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="main-nav">
+        <button class="nav-link active" onclick="navigateTo('home')"><i class="fa-solid fa-house"></i> Home</button>
+        
+        <!-- Scholarships Dropdown -->
+        <div class="dropdown">
+          <button class="nav-link dropdown-toggle"><i class="fa-solid fa-award"></i> Scholarships <i class="fa-solid fa-chevron-down"></i></button>
+          <div class="dropdown-menu">
+            <a href="javascript:void(0)" onclick="filterAndNavigate('Secondary (Class 9-10)')">Pre-Matric Schemes</a>
+            <a href="javascript:void(0)" onclick="filterAndNavigate('Undergraduate / Diploma')">Post-Matric Schemes</a>
+            <a href="javascript:void(0)" onclick="filterAndNavigate('Postgraduate / M.Phil / Ph.D')">Higher Education & Fellowship</a>
+            <a href="javascript:void(0)" onclick="filterAndNavigate('Research')">National Overseas & Research</a>
+          </div>
+        </div>
+
+        <button class="nav-link" onclick="navigateTo('apply')"><i class="fa-solid fa-file-signature"></i> Apply</button>
+        <button class="nav-link" onclick="navigateTo('track')"><i class="fa-solid fa-magnifying-glass-location"></i> Track</button>
+        <button class="nav-link" onclick="navigateTo('announcements')"><i class="fa-solid fa-bullhorn"></i> Announcements</button>
+        <button class="nav-link" onclick="navigateTo('faq')"><i class="fa-solid fa-circle-question"></i> FAQ</button>
+        <button class="nav-link" onclick="navigateTo('contact')"><i class="fa-solid fa-headset"></i> Grievance</button>
+      </nav>
+
+      <!-- Auth Switcher -->
+      <div class="auth-buttons">
+        <button id="nav-student-btn" class="btn btn-primary" onclick="openLoginModal('student')">
+          <i class="fa-solid fa-user"></i> <span id="student-btn-text">Student Login</span>
+        </button>
+        <button id="nav-officer-btn" class="btn btn-secondary" onclick="openLoginModal('officer')">
+          <i class="fa-solid fa-building-columns"></i> <span id="officer-btn-text">Officer Portal</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Modal (Dual Student / Officer Login) -->
+  <div id="login-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3 id="modal-heading">Student Single Sign-On</h3>
+        </div>
+        <button class="close-btn" onclick="closeLoginModal()">&times;</button>
+      </div>
+      <p class="modal-sub" id="modal-subtext">National e-Pramaan Gateway (DigiLocker / Aadhaar Enabled)</p>
+      
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group">
+          <label id="lbl-login-id" for="login-id">Aadhaar / DigiLocker ID</label>
+          <input type="text" id="login-id" required />
+        </div>
+        <div class="form-group">
+          <label for="login-password">Access PIN / Password</label>
+          <input type="password" id="login-password" value="123456" required />
+        </div>
+        <div class="demo-credential-box">
+          <i class="fa-solid fa-circle-info"></i> Demo credentials auto-configured for hackathon assessment.
+        </div>
+        <button type="submit" class="submit-login-btn">
+          <i class="fa-solid fa-lock-open"></i> Authenticate & Enter Portal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- VIEW 1: HOME PAGE -->
+  <section id="view-home" class="portal-view active">
+    <!-- Hero Banner -->
+    <div class="hero-section">
+      <div class="container hero-content">
+        <h2>Empowering Tribal Youth Through Seamless Education Finance</h2>
+        <p>Centrally Sponsored Direct Benefit Transfer (DBT) Portal connecting over 300,000 Scheduled Tribe students to National & State Fellowships with Zero Paperwork.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-gold" onclick="navigateTo('apply')"><i class="fa-solid fa-pen-nib"></i> Check Eligibility & Apply</button>
+          <button class="btn btn-outline" onclick="navigateTo('track')"><i class="fa-solid fa-magnifying-glass"></i> Track Existing Application</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="container stats-bar">
+      <div class="stat-card">
+        <h3>₹ 450+ Cr</h3>
+        <p>Disbursed via DBT (FY 2025-26)</p>
+      </div>
+      <div class="stat-card">
+        <h3>100%</h3>
+        <p>DigiLocker Verified Records</p>
+      </div>
+      <div class="stat-card">
+        <h3>3.4 Lakhs</h3>
+        <p>Active ST Beneficiaries</p>
+      </div>
+      <div class="stat-card">
+        <h3>&lt; 7 Days</h3>
+        <p>Average Processing Cycle</p>
+      </div>
+    </div>
+
+    <!-- Core Scheme Buckets -->
+    <div class="container section-block">
+      <div class="section-title-wrap">
+        <h2>Key Centrally Sponsored Schemes</h2>
+        <p>Select a category to view guidelines, criteria, and funding slabs</p>
+      </div>
+      <div class="category-grid">
+        <div class="category-card" onclick="filterAndNavigate('Secondary (Class 9-10)')">
+          <i class="fa-solid fa-school category-icon"></i>
+          <h3>Pre-Matric Scholarships</h3>
+          <p>For ST students studying in Classes IX and X to minimize drop-out rates in secondary school.</p>
+          <span class="category-link">View Schemes &rarr;</span>
+        </div>
+        <div class="category-card" onclick="filterAndNavigate('Undergraduate / Diploma')">
+          <i class="fa-solid fa-building-columns category-icon"></i>
+          <h3>Post-Matric Scholarships</h3>
+          <p>Full financial assistance including tuition fee and maintenance allowance for UG & Diploma studies.</p>
+          <span class="category-link">View Schemes &rarr;</span>
+        </div>
+        <div class="category-card" onclick="filterAndNavigate('Postgraduate / M.Phil / Ph.D')">
+          <i class="fa-solid fa-microscope category-icon"></i>
+          <h3>National Higher Education Fellowship</h3>
+          <p>Monthly fellowship of ₹31,000 for scholars pursuing M.Phil and Ph.D. degrees in top universities.</p>
+          <span class="category-link">View Schemes &rarr;</span>
+        </div>
+        <div class="category-card" onclick="filterAndNavigate('Research')">
+          <i class="fa-solid fa-plane-departure category-icon"></i>
+          <h3>National Overseas & Special Research</h3>
+          <p>Specialized travel grants and full sponsorships for meritorious ST students admitted to global universities.</p>
+          <span class="category-link">View Schemes &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 2: SCHOLARSHIPS DIRECTORY & APPLY ENGINE -->
+  <section id="view-apply" class="portal-view">
+    <div class="container main-grid">
+      <!-- Left Column: Dynamic Eligibility Calculator -->
+      <aside class="sidebar-card">
+        <div class="card-header">
+          <i class="fa-solid fa-sliders"></i>
+          <h2>Eligibility & Scheme Filter</h2>
+        </div>
+
+        <form id="profile-filter-form">
+          <div class="form-group">
+            <label for="input-income">Annual Family Income (₹)</label>
+            <input type="number" id="input-income" value="200000" min="0" step="10000" />
+            <span class="hint-text">Auto-checks eligibility thresholds</span>
+          </div>
+
+          <div class="form-group">
+            <label for="select-education">Current Education Level</label>
+            <select id="select-education">
+              <option value="Secondary (Class 9-10)">Secondary (Class 9-10)</option>
+              <option value="Undergraduate / Diploma" selected>Undergraduate / Diploma</option>
+              <option value="Postgraduate / M.Phil / Ph.D">Postgraduate / M.Phil / Ph.D</option>
+              <option value="Research">Research / Overseas Studies</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="input-marks">Last Academic Score (%)</label>
+            <input type="number" id="input-marks" value="75" min="0" max="100" />
+          </div>
+
+          <div class="verification-badge">
+            <i class="fa-solid fa-shield-halved badge-icon"></i>
+            <div>
+              <h4>DigiLocker ST Verification</h4>
+              <p>State Certificate Token: Validated</p>
+            </div>
+          </div>
+        </form>
+      </aside>
+
+      <!-- Right Column: Scholarship Cards Feed -->
+      <div class="content-area">
+        <div class="section-heading">
+          <h2>Active Scholarship Opportunities</h2>
+          <span class="results-tag" id="results-count">Scanning matching programs...</span>
+        </div>
+        <div id="scholarships-feed" class="scholarships-feed">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 3: TRACK APPLICATION -->
+  <section id="view-track" class="portal-view">
+    <div class="container tracker-container">
+      <div class="tracker-search-box">
+        <h2><i class="fa-solid fa-route"></i> Live Application & DBT Status Tracker</h2>
+        <p>Enter your unique Application Reference Number (ARN) or Aadhaar ID</p>
+        <div class="search-bar-inline">
+          <input type="text" id="track-input" placeholder="e.g. APP-ST-101" value="APP-ST-101" />
+          <button class="btn btn-primary" onclick="executeTrackSearch()"><i class="fa-solid fa-magnifying-glass"></i> Track</button>
+        </div>
+      </div>
+
+      <div id="track-results-area" class="track-results-card">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 4: STUDENT DASHBOARD -->
+  <section id="view-student-dashboard" class="portal-view">
+    <div class="container dashboard-layout">
+      <!-- Dashboard Sidebar Tabs -->
+      <aside class="dash-sidebar">
+        <div class="student-profile-mini">
+          <div class="user-avatar-lg"><i class="fa-solid fa-user-graduate"></i></div>
+          <h3 id="dash-user-name">Zumainaah Ahmed</h3>
+          <p id="dash-user-id">Aadhaar: 9845-2311-8842</p>
+          <span class="tag-verified"><i class="fa-solid fa-check"></i> ST Authenticated</span>
+        </div>
+        <nav class="dash-nav">
+          <button class="dash-tab-btn active" onclick="switchDashTab('tab-profile')"><i class="fa-solid fa-id-card"></i> Profile Overview</button>
+          <button class="dash-tab-btn" onclick="switchDashTab('tab-applications')"><i class="fa-solid fa-folder-open"></i> My Applications</button>
+          <button class="dash-tab-btn" onclick="switchDashTab('tab-documents')"><i class="fa-solid fa-file-circle-check"></i> Documents Vault</button>
+          <button class="dash-tab-btn" onclick="switchDashTab('tab-payments')"><i class="fa-solid fa-indian-rupee-sign"></i> Payment & DBT Status</button>
+          <button class="dash-tab-btn" onclick="switchDashTab('tab-notifications')"><i class="fa-solid fa-bell"></i> Notifications</button>
+          <button class="dash-tab-btn" onclick="switchDashTab('tab-grievances')"><i class="fa-solid fa-circle-exclamation"></i> Grievance Desk</button>
+        </nav>
+      </aside>
+
+      <!-- Dashboard Tab Views -->
+      <div class="dash-content">
+        <!-- Tab 1: Profile -->
+        <div id="tab-profile" class="dash-tab-pane active">
+          <div class="pane-header">
+            <h3>Student Identity & Verification Record</h3>
+            <span class="badge-dbt">e-KYC Completed</span>
+          </div>
+          <div class="profile-details-grid">
+            <div class="detail-item"><label>Full Name</label><p id="p-name">Zumainaah Ahmed</p></div>
+            <div class="detail-item"><label>Tribe Category</label><p>Scheduled Tribe (ST)</p></div>
+            <div class="detail-item"><label>Academic Discipline</label><p>BCA - Computer Applications</p></div>
+            <div class="detail-item"><label>State of Domicile</label><p>West Bengal</p></div>
+            <div class="detail-item"><label>DigiLocker Doc Token</label><p>DL-ST-883492-WB</p></div>
+            <div class="detail-item"><label>NPCI Bank Seeding</label><p class="text-success"><i class="fa-solid fa-link"></i> Linked (Aadhaar DBT Active)</p></div>
+          </div>
+        </div>
+
+        <!-- Tab 2: My Applications -->
+        <div id="tab-applications" class="dash-tab-pane">
+          <div class="pane-header">
+            <h3>Registered Scholarship Filings</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="portal-table">
+              <thead>
+                <tr>
+                  <th>Application ID</th>
+                  <th>Scheme Name</th>
+                  <th>Submission Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="student-apps-table">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Documents Vault -->
+        <div id="tab-documents" class="dash-tab-pane">
+          <div class="pane-header">
+            <h3>Cryptographic Digital Locker Vault</h3>
+            <button class="btn btn-sm btn-primary" onclick="navigateTo('apply')"><i class="fa-solid fa-plus"></i> Upload New</button>
+          </div>
+          <p class="tab-sub">All certificates authenticated via DigiLocker and National e-Governance APIs.</p>
+          <div id="docs-vault-list" class="docs-vault-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Tab 4: Payments -->
+        <div id="tab-payments" class="dash-tab-pane">
+          <div class="pane-header">
+            <h3>Direct Benefit Transfer (DBT) Ledger</h3>
+          </div>
+          <div class="payment-card">
+            <div class="pay-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <div>
+              <h4>Payment Batch: PFMS-ST-2026-09</h4>
+              <p>Status: Disbursed to Aadhaar-linked Bank Account (State Bank of India - ****3211)</p>
+              <h3 class="pay-amount">₹ 48,000.00 <span class="badge-success">Credit Successful</span></h3>
+              <span class="pay-utr">UTR Ref: SBIN0008892182049 | Transaction Date: 2026-09-18</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Notifications -->
+        <div id="tab-notifications" class="dash-tab-pane">
+          <div class="pane-header">
+            <h3>System Alerts & Communications</h3>
+          </div>
+          <div class="notify-list">
+            <div class="notify-item">
+              <i class="fa-solid fa-circle-check notify-icon-green"></i>
+              <div>
+                <h4>Institute Verification Passed</h4>
+                <p>Your college nodal officer verified your academic eligibility credentials.</p>
+                <span class="notify-time">2 days ago</span>
+              </div>
+            </div>
+            <div class="notify-item">
+              <i class="fa-solid fa-bell notify-icon-amber"></i>
+              <div>
+                <h4>National Higher Education Fellowship Open</h4>
+                <p>Applications are now invited for the upcoming academic research semester.</p>
+                <span class="notify-time">1 week ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 6: Grievance Desk -->
+        <div id="tab-grievances" class="dash-tab-pane">
+          <div class="pane-header">
+            <h3>Student Grievance & Redressal Desk</h3>
+          </div>
+          <form class="grievance-form" onsubmit="handleGrievanceSubmit(event)">
+            <div class="form-group">
+              <label>Select Grievance Category</label>
+              <select required>
+                <option value="DBT Delay">Delayed DBT Bank Credit</option>
+                <option value="Verification">Institute Verification Delay</option>
+                <option value="Doc Correction">Document Mismatch in DigiLocker</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Detailed Explanation</label>
+              <textarea rows="4" placeholder="Enter your issue with relevant reference numbers..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Grievance</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 5: OFFICER / INSTITUTE VERIFICATION DASHBOARD -->
+  <section id="view-officer-dashboard" class="portal-view">
+    <div class="container officer-container">
+      <div class="officer-header-bar">
+        <div>
+          <h2><i class="fa-solid fa-building-columns"></i> State Nodal Officer & Institute Desk</h2>
+          <p>Jurisdiction: District Welfare Commission / Institutional Verification Queue</p>
+        </div>
+        <div class="officer-meta">
+          <span class="badge-role">Nodal Verifier Level 2</span>
+          <button class="btn btn-sm btn-outline-danger" onclick="logoutSession()"><i class="fa-solid fa-right-from-bracket"></i> Exit Desk</button>
+        </div>
+      </div>
+
+      <!-- Actionable Verification Queue -->
+      <div class="queue-card">
+        <h3>Pending Student Verification Filings</h3>
+        <p class="tab-sub">Review documents authenticated via DigiLocker before advancing to DBT disbursal.</p>
+        
+        <div class="table-responsive">
+          <table class="portal-table">
+            <thead>
+              <tr>
+                <th>App ID</th>
+                <th>Student Name</th>
+                <th>Scheme</th>
+                <th>DigiLocker Status</th>
+                <th>Uploaded Proofs</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="officer-queue-table">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 6: ANNOUNCEMENTS -->
+  <section id="view-announcements" class="portal-view">
+    <div class="container section-block">
+      <div class="section-title-wrap">
+        <h2>Ministry Notifications & Official Circulars</h2>
+        <p>Latest policy updates, extended deadlines, and grant disbursement schedules</p>
+      </div>
+      <div class="announcements-grid">
+        <article class="announcement-item">
+          <span class="ann-date">28 SEP 2026</span>
+          <h3>Extension of Post-Matric ST Scholarship Deadline for Academic Year 2026-27</h3>
+          <p>The Ministry of Tribal Affairs has officially extended the registration and institutional verification deadline till 15th December 2026 to facilitate students in aspirational districts.</p>
+          <a href="javascript:void(0)" class="link-download"><i class="fa-solid fa-file-pdf"></i> Download Circular (MoTA/2026/09-A)</a>
+        </article>
+        <article class="announcement-item">
+          <span class="ann-date">15 SEP 2026</span>
+          <h3>Mandatory Aadhaar Seeding on NPCI Mapper for DBT Expedited Processing</h3>
+          <p>All candidates must ensure their primary savings bank account is seeded with Aadhaar on the NPCI mapper to prevent disbursement failure during DBT execution.</p>
+          <a href="javascript:void(0)" class="link-download"><i class="fa-solid fa-file-pdf"></i> Operational Guidelines (DBT-Mission/442)</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 7: HELP / FAQ -->
+  <section id="view-faq" class="portal-view">
+    <div class="container section-block">
+      <div class="section-title-wrap">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <p>Find instant answers regarding eligibility, required documents, and DBT verification</p>
+      </div>
+      <div class="faq-accordion">
+        <details class="faq-item">
+          <summary>Who is eligible for the National Fellowship for ST Students?</summary>
+          <p>Any Scheduled Tribe student who has secured regular admission in M.Phil/Ph.D courses in universities recognized by UGC, with an aggregate annual parental income not exceeding ₹6,00,000.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What is DigiLocker digital token verification?</summary>
+          <p>Instead of manually submitting physical stamped papers, the portal securely pulls your verified Caste and Income Certificate directly from state issuing authorities via DigiLocker cryptographic APIs.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What file formats are accepted for document uploads?</summary>
+          <p>The portal strictly accepts document uploads in <strong>PDF</strong> and <strong>JPG/JPEG</strong> format only to maintain integrity and prevent security issues.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How can I resolve DBT payment failure?</summary>
+          <p>DBT transfers require an active bank account linked to your Aadhaar card on the NPCI server. Visit your home bank branch to request 'NPCI Aadhaar Mapping'.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 8: CONTACT / GRIEVANCE -->
+  <section id="view-contact" class="portal-view">
+    <div class="container section-block">
+      <div class="section-title-wrap">
+        <h2>Contact Ministry & Grievance Redressal</h2>
+        <p>Reach out to central helpdesk officers or submit formal escalation tickets</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info-card">
+          <h3>National Tribal Helpdesk</h3>
+          <p><i class="fa-solid fa-location-dot"></i> Ministry of Tribal Affairs, Shastri Bhawan, Dr. Rajendra Prasad Road, New Delhi - 110001</p>
+          <p><i class="fa-solid fa-phone"></i> Toll-Free National Hotline: 1800-11-7788</p>
+          <p><i class="fa-solid fa-envelope"></i> helpdesk-scholarship@tribal.gov.in</p>
+          <p><i class="fa-solid fa-clock"></i> Working Hours: Monday - Friday (09:30 AM to 05:30 PM)</p>
+        </div>
+        <div class="contact-form-card">
+          <h3>Submit a Grievance Ticket</h3>
+          <form onsubmit="handleGrievanceSubmit(event)">
+            <div class="form-group">
+              <label>Student / Applicant Name</label>
+              <input type="text" value="Zumainaah Ahmed" required />
+            </div>
+            <div class="form-group">
+              <label>Aadhaar / Mobile Number</label>
+              <input type="text" placeholder="10-digit mobile or Aadhaar" required />
+            </div>
+            <div class="form-group">
+              <label>Issue Description</label>
+              <textarea rows="3" placeholder="Provide complete application reference and issue details..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send Ticket</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <div class="footer-col">
+        <h4>Ministry of Tribal Affairs</h4>
+        <p>Government of India initiative for educational advancement and financial inclusion of Scheduled Tribes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Gateways</h4>
+        <p><a href="javascript:void(0)" onclick="navigateTo('home')">Home</a> | <a href="javascript:void(0)" onclick="navigateTo('apply')">Scholarships</a> | <a href="javascript:void(0)" onclick="navigateTo('track')">Track DBT</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Compliance & Standards</h4>
+        <p>Direct Benefit Transfer (DBT) | DigiLocker Verified | National Scholarship Portal Aligned (SIH26238)</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ministry of Tribal Affairs. Designed and built for Smart India Hackathon 2026.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
